@@ -1,4 +1,4 @@
-# OtimizeWindows
+# Optimization System | Windows 11
 Arquivo em lote (.bat) para otimização do Windows
 
 Criei um mega script de otimização do windows, retirando essas tranqueiras de telemetria, e fazendo aqueles tweaks que todo mundo faz. Um arquivo .bat ao invés daquelas iso customizadas. Comecei com a base de um script que o cara do hwinfo fez.
