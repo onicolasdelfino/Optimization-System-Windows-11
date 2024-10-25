@@ -1,10 +1,13 @@
 @ECHO off
 CHCP 65001 > nul
-ECHO MSGBOX "PARA TOTAL FUNCIONALIDADE ACONSELHAMOS EXECUTAR O ARQUIVO COMO ADMINISTRADOR",256,"SPEED SYSTEM" >%temp%\mensagem1.vbs
-START %temp%\mensagem1.vbs
+ECHO MSGBOX "PARA TOTAL FUNCIONALIDADE ACONSELHAMOS EXECUTAR O ARQUIVO COMO ADMINISTRADOR",256,"SPEED SYSTEM" > "%temp%\mensagem1.vbs"
+START "" "%temp%\mensagem1.vbs"
 CLS
 TITLE CONTROLE DE ACESSO
 COLOR b
+
+SET username=%USERNAME%
+SET computername=%COMPUTERNAME%
 
 :control
 CLS
@@ -15,7 +18,16 @@ ECHO *  - Para mais Informações, acesse a       *
 ECHO *    documentação do repositório GIT raiz  *
 ECHO  ==========================================
 SET /P "pass=Senha>"  
-IF NOT "%pass%"=="admin" GOTO fail
+IF "%pass%"=="admin" GOTO wellcome
+GOTO fail
+
+:wellcome
+CLS
+TITLE BEM VINDO
+ECHO  				 ==================================
+ECHO 				*            BEM VINDO             *
+ECHO  				...
+PAUSE > nul
 
 :wellcome
 CLS
