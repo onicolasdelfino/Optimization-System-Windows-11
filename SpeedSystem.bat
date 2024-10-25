@@ -1,11 +1,7 @@
 @ECHO off
 CLS
-
-REM Definindo variáveis do usuário e do computador
 SET "username=%USERNAME%"
 SET "computername=%COMPUTERNAME%"
-
-REM Solicitar senha
 ECHO ==========================================
 ECHO *   INSIRA A SENHA PARA ATIVAR O PROGRAMA  *
 ECHO ==========================================
@@ -14,7 +10,6 @@ IF "%pass%"=="admin" GOTO welcome
 ECHO Senha incorreta. Tente novamente.
 PAUSE > nul
 GOTO :EOF
-
 :welcome
 CLS
 TITLE BEM VINDO
@@ -28,7 +23,6 @@ ECHO *       FEITO POR: Nicolas Delfino *
 ECHO ==================================
 PAUSE > nul
 GOTO menu
-
 :menu
 CLS
 TITLE FACILITADOR DE COMANDOS
@@ -53,8 +47,6 @@ ECHO * 10. Voltar ao Guia               *
 ECHO * 11. Sair                         *
 ECHO ==================================
 SET /P "opcao=Escolha uma opção: "
-
-REM Controle do menu
 IF "%opcao%"=="1" GOTO INFO
 IF "%opcao%"=="2" GOTO LIMP
 IF "%opcao%"=="3" GOTO DISCO
@@ -66,11 +58,9 @@ IF "%opcao%"=="8" GOTO DESLIGAR
 IF "%opcao%"=="9" GOTO github
 IF "%opcao%"=="10" GOTO welcome
 IF "%opcao%"=="11" GOTO EXIT
-
 ECHO Opção inválida! Tente novamente.
 PAUSE > nul
 GOTO menu
-
 :INFO
 CLS
 TITLE INFORMAÇÕES
@@ -90,7 +80,6 @@ SYSTEMINFO > c:\INFO.txt
 ECHO Arquivo INFO.txt gerado no disco C:
 PAUSE > nul
 GOTO menu
-
 :LIMP
 CLS
 TITLE LIMPEZA
@@ -108,11 +97,9 @@ IF "%limp%"=="2" GOTO limp2
 IF "%limp%"=="3" GOTO limp3
 IF "%limp%"=="4" GOTO limp4
 IF "%limp%"=="5" GOTO menu
-
 ECHO Opção inválida! Tente novamente.
 PAUSE > nul
 GOTO LIMP
-
 :limp1
 CLS
 TITLE LIMPANDO ...
@@ -120,7 +107,6 @@ RD /S /Q C:\$Recycle.bin
 ECHO Lixeira esvaziada.
 PAUSE > nul
 GOTO LIMP
-
 :limp2
 TITLE LIMPANDO ARQUIVOS ...
 CLS
@@ -138,19 +124,17 @@ SC delete dmwappushservice >nul 2>&1
 ECHO Limpeza concluída.
 PAUSE > nul
 GOTO LIMP
-
 :limp3
 TITLE LIMPANDO ARQUIVOS TEMP...
 CLS
 IF EXIST c:\windows\temp\ (
-    DEL /F /S /Q c:\windows\temp\* >nul 2>&1
-    DEL /F /S /Q %temp%\* >nul 2>&1
-    DEL /Q /S C:\windows\system32\dllcache >nul 2>&1
-    ECHO Arquivos temporários limpos.
+DEL /F /S /Q c:\windows\temp\* >nul 2>&1
+DEL /F /S /Q %temp%\* >nul 2>&1
+DEL /Q /S C:\windows\system32\dllcache >nul 2>&1
+ECHO Arquivos temporários limpos.
 )
 PAUSE > nul
 GOTO LIMP
-
 :limp4
 TITLE LIMPANDO FILA DE IMPRESSÃO ...
 CLS
@@ -160,25 +144,21 @@ NET START Spooler >nul
 ECHO Fila de impressão limpa.
 PAUSE > nul
 GOTO LIMP
-
 :REINICIAR
 CLS
 ECHO Reiniciando...
 SHUTDOWN /r /t 0
 GOTO menu
-
 :DESLIGAR
 CLS
 ECHO Desligando...
 SHUTDOWN /s /t 0
 GOTO menu
-
 :github
 CLS
 TITLE GITHUB
 ECHO Acesse o nosso GitHub: https://github.com/nicolasdelfino
 PAUSE > nul
 GOTO menu
-
 :EXIT
 EXIT
