@@ -2,19 +2,6 @@
 CHCP 65001 > nul
 TITLE iDWeb - Soluções™
 
-:: Verificar versão do Windows (Windows 10 ou 11)
-FOR /F "tokens=2 delims==" %%I IN ('wmic os get Caption /value') DO SET "OSVer=%%I"
-IF NOT "%OSVer%"=="" (
-    ECHO Versão do Windows detectada: %OSVer%
-    ECHO %OSVer% | FINDSTR /I "Windows 10" >nul && GOTO control
-    ECHO %OSVer% | FINDSTR /I "Windows 11" >nul && GOTO control
-)
-
-ECHO Este script requer Windows 10 ou 11. Saindo...
-TIMEOUT /nobreak /t 5 > nul
-EXIT /B
-
-:control
 CLS
 SET "username=%USERNAME%"
 SET "computername=%COMPUTERNAME%"
@@ -26,7 +13,7 @@ SET /P "pass=Senha> "
 IF "%pass%"=="admin" GOTO welcome
 ECHO Senha incorreta. Tente novamente.
 PAUSE > nul
-GOTO control
+GOTO :EOF
 
 :welcome
 CLS
