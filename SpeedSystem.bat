@@ -1,4 +1,5 @@
 @ECHO off
+SETLOCAL ENABLEDELAYEDEXPANSION
 CLS
 SET "username=%USERNAME%"
 SET "computername=%COMPUTERNAME%"
@@ -6,7 +7,7 @@ ECHO ==========================================
 ECHO *   INSIRA A SENHA PARA ATIVAR O PROGRAMA  *
 ECHO ==========================================
 SET /P "pass=Senha> "
-IF "%pass%"=="admin" GOTO welcome
+IF "!pass!"=="admin" GOTO welcome
 ECHO Senha incorreta. Tente novamente.
 PAUSE > nul
 GOTO :EOF
@@ -27,9 +28,9 @@ GOTO menu
 CLS
 TITLE FACILITADOR DE COMANDOS
 COLOR b
-ECHO USUÁRIO: %username%
-ECHO COMPUTADOR: %computername%
-ECHO DATA: %date%   %time%
+ECHO USUÁRIO: !username!
+ECHO COMPUTADOR: !computername!
+ECHO DATA: !date!   !time!
 ECHO.
 ECHO ----- MENU TAREFAS -----
 ECHO ==================================
@@ -47,17 +48,17 @@ ECHO * 10. Voltar ao Guia               *
 ECHO * 11. Sair                         *
 ECHO ==================================
 SET /P "opcao=Escolha uma opção: "
-IF "%opcao%"=="1" GOTO INFO
-IF "%opcao%"=="2" GOTO LIMP
-IF "%opcao%"=="3" GOTO DISCO
-IF "%opcao%"=="4" GOTO BACKUP
-IF "%opcao%"=="5" GOTO REDE
-IF "%opcao%"=="6" GOTO EXE
-IF "%opcao%"=="7" GOTO REINICIAR
-IF "%opcao%"=="8" GOTO DESLIGAR
-IF "%opcao%"=="9" GOTO github
-IF "%opcao%"=="10" GOTO welcome
-IF "%opcao%"=="11" GOTO EXIT
+IF "!opcao!"=="1" GOTO INFO
+IF "!opcao!"=="2" GOTO LIMP
+IF "!opcao!"=="3" GOTO DISCO
+IF "!opcao!"=="4" GOTO BACKUP
+IF "!opcao!"=="5" GOTO REDE
+IF "!opcao!"=="6" GOTO EXE
+IF "!opcao!"=="7" GOTO REINICIAR
+IF "!opcao!"=="8" GOTO DESLIGAR
+IF "!opcao!"=="9" GOTO github
+IF "!opcao!"=="10" GOTO welcome
+IF "!opcao!"=="11" GOTO EXIT
 ECHO Opção inválida! Tente novamente.
 PAUSE > nul
 GOTO menu
@@ -92,11 +93,11 @@ ECHO * 4. Limpar Fila de Impressão   *
 ECHO * 5. Voltar                     *
 ECHO ===============================
 SET /P "limp=Selecione: "
-IF "%limp%"=="1" GOTO limp1
-IF "%limp%"=="2" GOTO limp2
-IF "%limp%"=="3" GOTO limp3
-IF "%limp%"=="4" GOTO limp4
-IF "%limp%"=="5" GOTO menu
+IF "!limp!"=="1" GOTO limp1
+IF "!limp!"=="2" GOTO limp2
+IF "!limp!"=="3" GOTO limp3
+IF "!limp!"=="4" GOTO limp4
+IF "!limp!"=="5" GOTO menu
 ECHO Opção inválida! Tente novamente.
 PAUSE > nul
 GOTO LIMP
