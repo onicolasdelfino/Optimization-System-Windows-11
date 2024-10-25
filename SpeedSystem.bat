@@ -1,7 +1,7 @@
 :: Nome   : Menu.cmd
 :: Motivo : Agilizar pequenas ações e funcionalidades.
-:: Autor  : Nicolas e github.com/joaovMiranda
-:: VERSÃO : 1.4.5
+:: Autor  : https://github.com/onicolasdelfino
+:: VERSÃO : 1.0.0
 
 @echo off
 :: Autenticacao
@@ -14,7 +14,7 @@ ECHO  ==========================================
 ECHO *   INSIRA A SENHA PARA ATIVAR O PROGRAMA  *
 ECHO  ------------------------------------------
 ECHO *  - Para mais Informacoes, acesse a      * 
-ECHO *    documentacao do repositório GIT raiz  *
+ECHO *    documentacao do repositorio GIT raiz  *
 ECHO  ==========================================
 SET /P "pass=Senha>"  
 IF NOT %pass%== admin GOTO fail
@@ -22,23 +22,23 @@ IF NOT %pass%== admin GOTO fail
 :wellcome
 CLS
 TITLE BEM VINDO
-ECHO  				 ==================================
-ECHO 				*            BEM VINDO             *
-ECHO 				*                                  * 
-ECHO 				* Guia:                            *
-ECHO 				* - Para total funcionalidade e    *
-ECHO 				*   necessario que o programa seja * 
-ECHO 				*   executado como administrador.  *
-ECHO 				* - Digite um numero natural (N*)   * 
-ECHO 				*   para selecionar uma das opcoes.* 
-ECHO 				* - Aperte as teclas Ctrl + C para * 
-ECHO 				*   abortar uma operacao.          *
-ECHO  				+ ================================ + 
-ECHO 				*                                  * 
-ECHO 				*       MADE BY: Nicolas          * 
-ECHO 				*  Copyright (c) 2024 Nicolas     * 
-ECHO 				*                                  * 
-ECHO  				 ==================================
+ECHO  			======================================
+ECHO 				*        SEJA MUITO BEM-VINDO        *
+ECHO 				*                                    * 
+ECHO 				* Guia:                              *
+ECHO 				* - Para total funcionalidade e      *
+ECHO 				*   necessario que o programa seja   * 
+ECHO 				*   executado como administrador.    *
+ECHO 				* - Digite um numero natural (N*)    * 
+ECHO 				*   para selecionar uma das opcoes.  * 
+ECHO 				* - Aperte as teclas Ctrl + C para   * 
+ECHO 				*   abortar uma operacao.            *
+ECHO  			+ ================================== + 
+ECHO 				*                                    * 
+ECHO 				*     MADE BY: Nicolas Delfino       * 
+ECHO 				* Copyright (c) 2024 Nicolas Delfino * 
+ECHO 				*                                    * 
+ECHO  			======================================
 PAUSE > nul
 
 :menu
