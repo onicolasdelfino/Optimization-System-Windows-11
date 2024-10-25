@@ -18,7 +18,7 @@ ECHO ==================================
 ECHO *            BEM VINDO            *
 ECHO ==================================
 ECHO Guia:
-ECHO - Digite um número para selecionar uma opção.
+ECHO - Digite um numero para selecionar uma opcao.
 ECHO ==================================
 ECHO *       FEITO POR: Nicolas Delfino *
 ECHO ==================================
@@ -28,18 +28,18 @@ GOTO menu
 CLS
 TITLE FACILITADOR DE COMANDOS
 COLOR b
-ECHO USUÁRIO: !username!
+ECHO USUARIO: !username!
 ECHO COMPUTADOR: !computername!
 ECHO DATA: !date!   !time!
 ECHO.
 ECHO ----- MENU TAREFAS -----
 ECHO ==================================
-ECHO * 1.  Informações da Máquina       *
-ECHO * 2.  Opções de Limpeza            *
-ECHO * 3.  Opções de Disco              *
-ECHO * 4.  Opções de Backup             *
-ECHO * 5.  Opções de Rede               *
-ECHO * 6.  Abrir Executáveis            *
+ECHO * 1.  Informacoes da Maquina       *
+ECHO * 2.  Opcoes de Limpeza            *
+ECHO * 3.  Opcoes de Disco              *
+ECHO * 4.  Opcoes de Backup             *
+ECHO * 5.  Opcoes de Rede               *
+ECHO * 6.  Abrir Executaveis            *
 ECHO * 7.  Reiniciar o Computador       *
 ECHO * 8.  Desligar o Computador        *
 ECHO ==================================
@@ -47,7 +47,7 @@ ECHO * 9. GitHub                        *
 ECHO * 10. Voltar ao Guia               *
 ECHO * 11. Sair                         *
 ECHO ==================================
-SET /P "opcao=Escolha uma opção: "
+SET /P "opcao=Escolha uma opcao: "
 IF "!opcao!"=="1" GOTO INFO
 IF "!opcao!"=="2" GOTO LIMP
 IF "!opcao!"=="3" GOTO DISCO
@@ -59,15 +59,15 @@ IF "!opcao!"=="8" GOTO DESLIGAR
 IF "!opcao!"=="9" GOTO github
 IF "!opcao!"=="10" GOTO welcome
 IF "!opcao!"=="11" GOTO EXIT
-ECHO Opção inválida! Tente novamente.
+ECHO Opcao invalida! Tente novamente.
 PAUSE > nul
 GOTO menu
 :INFO
 CLS
-TITLE INFORMAÇÕES
+TITLE INFORMACOES
 COLOR c
 ECHO ==================================
-ECHO *           SUA PLACA MÃE         *
+ECHO *           SUA PLACA MAE         *
 ECHO ==================================
 WMIC baseboard get product, manufacturer, version, serialnumber
 ECHO ==================================
@@ -75,7 +75,7 @@ ECHO *       ESQUEMAS DE ENERGIA       *
 ECHO ==================================
 POWERCFG /L
 ECHO ==================================
-ECHO *     INFORMAÇÕES DO SISTEMA      *
+ECHO *     INFORMACOES DO SISTEMA      *
 ECHO ==================================
 SYSTEMINFO > c:\INFO.txt
 ECHO Arquivo INFO.txt gerado no disco C:
@@ -88,8 +88,8 @@ ECHO ---- MENU DE LIMPEZA ----
 ECHO ===============================
 ECHO * 1. Esvaziar a Lixeira         *
 ECHO * 2. Limpeza Interna            *
-ECHO * 3. Limpar Arquivos Temporários *
-ECHO * 4. Limpar Fila de Impressão   *
+ECHO * 3. Limpar Arquivos Temporarios *
+ECHO * 4. Limpar Fila de Impressao   *
 ECHO * 5. Voltar                     *
 ECHO ===============================
 SET /P "limp=Selecione: "
@@ -98,7 +98,7 @@ IF "!limp!"=="2" GOTO limp2
 IF "!limp!"=="3" GOTO limp3
 IF "!limp!"=="4" GOTO limp4
 IF "!limp!"=="5" GOTO menu
-ECHO Opção inválida! Tente novamente.
+ECHO Opcao invalida! Tente novamente.
 PAUSE > nul
 GOTO LIMP
 :limp1
@@ -122,7 +122,7 @@ SC stop DiagTrack >nul 2>&1
 SC stop dmwappushservice >nul 2>&1
 SC delete DiagTrack >nul 2>&1
 SC delete dmwappushservice >nul 2>&1
-ECHO Limpeza concluída.
+ECHO Limpeza concluida.
 PAUSE > nul
 GOTO LIMP
 :limp3
@@ -132,17 +132,17 @@ IF EXIST c:\windows\temp\ (
 DEL /F /S /Q c:\windows\temp\* >nul 2>&1
 DEL /F /S /Q %temp%\* >nul 2>&1
 DEL /Q /S C:\windows\system32\dllcache >nul 2>&1
-ECHO Arquivos temporários limpos.
+ECHO Arquivos temporarios limpos.
 )
 PAUSE > nul
 GOTO LIMP
 :limp4
-TITLE LIMPANDO FILA DE IMPRESSÃO ...
+TITLE LIMPANDO FILA DE IMPRESSAO ...
 CLS
 NET STOP Spooler >nul
 DEL /F /S /Q %systemroot%\System32\spool\printers\*.* >nul
 NET START Spooler >nul
-ECHO Fila de impressão limpa.
+ECHO Fila de impressao limpa.
 PAUSE > nul
 GOTO LIMP
 :REINICIAR
