@@ -19,6 +19,7 @@ ECHO  ==========================================
 SET /P "pass=Senha>"  
 IF NOT %pass%== admin GOTO fail
 
+:: Tela de Boas Vindas
 :wellcome
 CLS
 TITLE BEM VINDO
@@ -41,6 +42,7 @@ ECHO 				*                                    *
 ECHO  			======================================
 PAUSE > nul
 
+:: Menu Principal
 :menu
 cls
 ECHO  ==================================
@@ -80,6 +82,7 @@ ECHO  ==================================
 PAUSE > nul
 GOTO menu
 
+:: Sistema de Limpeza 01
 :limp1
 TITLE LIMPA CACHE...
 CLS
@@ -93,6 +96,7 @@ ECHO  ==================================
 PAUSE > nul
 GOTO menu
 
+:: Sistema de Limpeza 02
 :limp4
 TITLE LIMPA FILA DE IMPRESSAO...
 CLS
@@ -105,9 +109,11 @@ ECHO  ==================================
 PAUSE > nul
 GOTO menu
 
+:: Sistema de Limpeza 03
 :limp5
 GOTO menu
 
+:: Sistema de Limpeza 04
 :limp6
 ECHO  ==================================
 ECHO *           OPCAO INVALIDA          *
@@ -115,6 +121,7 @@ ECHO  ==================================
 PAUSE > nul
 GOTO limp
 
+:: Menu de Disco
 :DISCO
 CLS
 TITLE OPCOES DE DISCO
@@ -173,6 +180,7 @@ ECHO  ==================================
 PAUSE > nul
 GOTO DISCO
 
+:: Sistema de Backup
 :BACKUP
 CLS
 ECHO  ==================================
@@ -218,6 +226,7 @@ ECHO  ==================================
 PAUSE > nul
 GOTO menu
 
+:: Sistema de Rede
 :REDE
 CLS
 ECHO  ==================================
