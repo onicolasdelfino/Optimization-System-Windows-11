@@ -1,10 +1,10 @@
 :: Nome   : SpeedSystem.bat
-:: Motivo : Agilizar pequenas ações e funcionalidades.
+:: Motivo : Agilizar pequenas acoes e funcionalidades.
 :: Autor  : https://github.com/onicolasdelfino
-:: VERSÃO : 1.0.0
+:: VERSAO : 1.0.0
 
 @echo off
-:: Autenticação
+:: Autenticacao
 CLS
 TITLE CONTROLE DE ACESSO
 COLOR b
@@ -24,13 +24,13 @@ ECHO  =======================================
 ECHO  *        SEJA MUITO BEM-VINDO        *
 ECHO  *                                    * 
 ECHO  * Guia:                              *
-ECHO  * - Para total funcionalidade é      *
-ECHO  *   necessário que o programa seja   * 
+ECHO  * - Para total funcionalidade e      *
+ECHO  *   necessario que o programa seja   * 
 ECHO  *   executado como administrador.    *
-ECHO  * - Digite um número natural (N*)    * 
-ECHO  *   para selecionar uma das opções.  * 
+ECHO  * - Digite um numero natural (N*)    * 
+ECHO  *   para selecionar uma das opcoes.  * 
 ECHO  * - Aperte as teclas Ctrl + C para   * 
-ECHO  *   abortar uma operação.            *
+ECHO  *   abortar uma operacao.            *
 ECHO  =======================================
 ECHO  *                                    * 
 ECHO  *     MADE BY: Nicolas Delfino       * 
@@ -45,19 +45,19 @@ ECHO  ==================================
 ECHO *          MENU PRINCIPAL         *
 ECHO  ==================================
 ECHO * 1. Limpar Cache                 *
-ECHO * 2. Limpar Fila de Impressão     *
-ECHO * 3. Opções de Disco              *
-ECHO * 4. Opções de Backup             *
-ECHO * 5. Opções de Rede               *
-ECHO * 6. Abrir Executáveis            *
+ECHO * 2. Limpar Fila de Impressao     *
+ECHO * 3. Opcoes de Disco              *
+ECHO * 4. Opcoes de Backup             *
+ECHO * 5. Opcoes de Rede               *
+ECHO * 6. Abrir Executaveis            *
 ECHO * 7. Reiniciar Computador         *
 ECHO * 8. Desligar Computador          *
 ECHO * 9. Verificar Processos          *
-ECHO * 10. Visualizar Configurações    *
+ECHO * 10. Visualizar Configuracoes    *
 ECHO * 11. Acessar GitHub              *
 ECHO * 12. Sair                        *
 ECHO  ==================================
-SET /p "escolha=Selecione uma opção: "
+SET /p "escolha=Selecione uma opcao: "
 
 IF "%escolha%"=="1" GOTO limp1
 IF "%escolha%"=="2" GOTO limp4
@@ -73,7 +73,7 @@ IF "%escolha%"=="11" GOTO GITHUB
 IF "%escolha%"=="12" EXIT
 
 ECHO  ==================================
-ECHO *           OPÇÃO INVÁLIDA          *
+ECHO *           OPCAO INVALIDA          *
 ECHO  ==================================
 PAUSE > nul
 GOTO menu
@@ -87,20 +87,20 @@ ECHO *        CACHE LIMPO              *
 ECHO  ==================================
 DEL /q /f "%temp%\*.*"
 ECHO  ==================================
-ECHO *        Arquivos Temporários Limpos *
+ECHO *        Arquivos Temporarios Limpos *
 ECHO  ==================================
 PAUSE > nul
 GOTO menu
 
 :: Sistema de Limpeza 02
 :limp4
-TITLE LIMPA FILA DE IMPRESSÃO...
+TITLE LIMPA FILA DE IMPRESSAO...
 CLS
 NET STOP SPOOLER
 DEL /q "%systemroot%\System32\spool\PRINTERS\*.*"
 NET START SPOOLER
 ECHO  ==================================
-ECHO *        Fila de Impressão Limpa    *
+ECHO *        Fila de Impressao Limpa    *
 ECHO  ==================================
 PAUSE > nul
 GOTO menu
@@ -108,7 +108,7 @@ GOTO menu
 :: Menu de Disco
 :DISCO
 CLS
-TITLE OPÇÕES DE DISCO
+TITLE OPCOES DE DISCO
 ECHO  ---- MENU DE DISCO ----
 ECHO  ===============================
 ECHO * 1. Checar Disco               *
@@ -124,7 +124,7 @@ IF "%disco%"=="3" GOTO uso_disco
 IF "%disco%"=="4" GOTO menu
 
 ECHO  ==================================
-ECHO *           OPÇÃO INVÁLIDA          *
+ECHO *           OPCAO INVALIDA          *
 ECHO  ==================================
 PAUSE > nul
 GOTO DISCO
@@ -141,10 +141,10 @@ GOTO menu
 :formatar_disco
 CLS
 ECHO  ==================================
-ECHO *        FORMATAÇÃO DE DISCO       *
+ECHO *        FORMATACAO DE DISCO       *
 ECHO  ==================================
 SET /p "drive=Digite a letra da unidade: "
-ECHO ATENÇÃO: Todos os dados serão perdidos. CONTINUAR? (S/N)
+ECHO ATENCAO: Todos os dados serao perdidos. CONTINUAR? (S/N)
 SET /p "confirma=Escolha: "
 IF /I "%confirma%" NEQ "S" GOTO menu
 FORMAT %drive%: /FS:NTFS
@@ -164,7 +164,7 @@ GOTO menu
 :BACKUP
 CLS
 ECHO  ==================================
-ECHO *          OPÇÕES DE BACKUP        *
+ECHO *          OPCOES DE BACKUP        *
 ECHO  ==================================
 ECHO * 1. Criar Backup Completo         *
 ECHO * 2. Restaurar Backup              *
@@ -177,7 +177,7 @@ IF "%backup%"=="2" GOTO restaurar_backup
 IF "%backup%"=="3" GOTO menu
 
 ECHO  ==================================
-ECHO *           OPÇÃO INVÁLIDA          *
+ECHO *           OPCAO INVALIDA          *
 ECHO  ==================================
 PAUSE > nul
 GOTO BACKUP
@@ -210,9 +210,9 @@ GOTO menu
 :REDE
 CLS
 ECHO  ==================================
-ECHO *            OPÇÕES DE REDE        *
+ECHO *            OPCOES DE REDE        *
 ECHO  ==================================
-ECHO * 1. Ver Configurações de Rede     *
+ECHO * 1. Ver Configuracoes de Rede     *
 ECHO * 2. Reiniciar Adaptador de Rede   *
 ECHO * 3. Voltar                        *
 ECHO  ==================================
@@ -223,7 +223,7 @@ IF "%rede%"=="2" GOTO reiniciar_rede
 IF "%rede%"=="3" GOTO menu
 
 ECHO  ==================================
-ECHO *           OPÇÃO INVÁLIDA          *
+ECHO *           OPCAO INVALIDA          *
 ECHO  ==================================
 PAUSE > nul
 GOTO REDE
@@ -231,7 +231,7 @@ GOTO REDE
 :ver_rede
 CLS
 ECHO  ==================================
-ECHO *       CONFIGURAÇÕES DE REDE      *
+ECHO *       CONFIGURACOES DE REDE      *
 ECHO  ==================================
 IPCONFIG /ALL
 PAUSE > nul
@@ -253,7 +253,7 @@ GOTO menu
 :EXE
 CLS
 ECHO  ==================================
-ECHO *            EXECUTÁVEIS           *
+ECHO *            EXECUTAVEIS           *
 ECHO  ==================================
 ECHO * 1. Abrir o Navegador             *
 ECHO * 2. Abrir o Editor de Texto       *
@@ -266,7 +266,7 @@ IF "%exe%"=="2" START notepad.exe
 IF "%exe%"=="3" GOTO menu
 
 ECHO  ==================================
-ECHO *           OPÇÃO INVÁLIDA          *
+ECHO *           OPCAO INVALIDA          *
 ECHO  ==================================
 PAUSE > nul
 GOTO EXE
@@ -274,23 +274,25 @@ GOTO EXE
 :REINICIAR
 CLS
 ECHO  ==================================
-ECHO *        REINICIANDO O PC...       *
+ECHO *      REINICIANDO O COMPUTADOR     *
 ECHO  ==================================
-shutdown /r /t 0
+SHUTDOWN /r /t 0
+PAUSE > nul
 GOTO menu
 
 :DESLIGAR
 CLS
 ECHO  ==================================
-ECHO *        DESLIGANDO O PC...        *
+ECHO *       DESLIGANDO O COMPUTADOR      *
 ECHO  ==================================
-shutdown /s /t 0
+SHUTDOWN /s /t 0
+PAUSE > nul
 GOTO menu
 
 :PROCESSOS
 CLS
 ECHO  ==================================
-ECHO *         VERIFICANDO PROCESSOS    *
+ECHO *        VERIFICANDO PROCESSOS      *
 ECHO  ==================================
 TASKLIST
 PAUSE > nul
@@ -299,12 +301,9 @@ GOTO menu
 :CONFIG
 CLS
 ECHO  ==================================
-ECHO *         CONFIGURAÇÕES DO SISTEMA *
+ECHO *        VISUALIZANDO CONFIGURACOES *
 ECHO  ==================================
-ECHO * Para mais Informações sobre       *
-ECHO * as configurações, consulte a      *
-ECHO * documentação do sistema.          *
-ECHO  ==================================
+REG QUERY "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
 PAUSE > nul
 GOTO menu
 
@@ -314,11 +313,12 @@ ECHO  ==================================
 ECHO *           ACESSANDO GITHUB       *
 ECHO  ==================================
 START https://github.com/onicolasdelfino
+PAUSE > nul
 GOTO menu
 
 :fail
 ECHO  ==================================
-ECHO *         SENHA INCORRETA!         *
+ECHO *            ACESSO NEGADO           *
 ECHO  ==================================
 PAUSE > nul
-GOTO control
+EXIT
