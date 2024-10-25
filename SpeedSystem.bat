@@ -78,6 +78,7 @@ ECHO    * 11. Sair                         *
 ECHO     ==================================
 SET /p opcao= Escolha uma opção: 
 ECHO ------------------------------
+
 IF "%opcao%"=="1" GOTO INFO
 IF "%opcao%"=="2" GOTO LIMP
 IF "%opcao%"=="3" GOTO DISCO
@@ -89,8 +90,10 @@ IF "%opcao%"=="8" GOTO DESLIGAR
 IF "%opcao%"=="9" GOTO github
 IF "%opcao%"=="10" GOTO wellcome
 IF "%opcao%"=="11" GOTO EXIT
-IF "%opcao%" LSS "1" GOTO ERROR
-IF "%opcao%" GTR "11" GOTO ERROR
+
+ECHO Opção inválida! Tente novamente.
+PAUSE > nul
+GOTO menu
 
 :INFO
 CLS
