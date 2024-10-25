@@ -2,13 +2,7 @@
 CHCP 65001 > nul
 TITLE iDWeb - Soluções™
 
-:: Informar que é necessário executar como administrador
-ECHO MSGBOX "Para total funcionalidade, execute o arquivo como administrador", 256, "iDWeb - Soluções" > "%temp%\mensagem1.vbs"
-START "" "%temp%\mensagem1.vbs"
-CLS
-COLOR b
-
-:: Verificar se o script está sendo executado com privilégios de administrador
+:: Verifica se o script está sendo executado como administrador
 IF _%1_==_payload_ GOTO payload
 
 :getadmin
@@ -20,7 +14,7 @@ DEL "%temp%\getadmin.vbs"
 EXIT /B
 
 :payload
-:: Verificar privilégios de administrador
+:: Verifica privilégios de administrador
 >nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
 IF %errorlevel% neq 0 (
     ECHO Erro: Falha ao obter privilégios de administrador.
@@ -29,7 +23,7 @@ IF %errorlevel% neq 0 (
     EXIT /B
 )
 
-:: Verificar a versão do Windows
+:: Verifica a versão do Windows (compatível com Windows 10 e 11)
 FOR /F "tokens=2 delims==" %%I IN ('wmic os get Caption /value') DO SET "OSVer=%%I"
 ECHO %OSVer% | FINDSTR /I "Windows 10" >nul
 IF %errorlevel% equ 0 GOTO control
