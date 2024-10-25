@@ -2,33 +2,13 @@
 CHCP 65001 > nul
 TITLE iDWeb - Soluções™
 
-:: Verifica se o script está sendo executado como administrador
-IF _%1_==_payload_ GOTO payload
-
-:getadmin
-SET "vbs=%temp%\getadmin.vbs"
-ECHO Set UAC = CreateObject^("Shell.Application"^) > "%vbs%"
-ECHO UAC.ShellExecute "%~s0", "payload", "", "runas", 1 >> "%vbs%"
-"%temp%\getadmin.vbs"
-DEL "%temp%\getadmin.vbs"
-EXIT /B
-
-:payload
-:: Verifica privilégios de administrador
->nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
-IF %errorlevel% neq 0 (
-    ECHO Erro: Falha ao obter privilégios de administrador.
-    ECHO Saindo...
-    TIMEOUT /nobreak /t 5 > nul
-    EXIT /B
-)
-
-:: Verifica a versão do Windows (compatível com Windows 10 e 11)
+:: Verificar versão do Windows (Windows 10 ou 11)
 FOR /F "tokens=2 delims==" %%I IN ('wmic os get Caption /value') DO SET "OSVer=%%I"
-ECHO %OSVer% | FINDSTR /I "Windows 10" >nul
-IF %errorlevel% equ 0 GOTO control
-ECHO %OSVer% | FINDSTR /I "Windows 11" >nul
-IF %errorlevel% equ 0 GOTO control
+IF NOT "%OSVer%"=="" (
+    ECHO Versão do Windows detectada: %OSVer%
+    ECHO %OSVer% | FINDSTR /I "Windows 10" >nul && GOTO control
+    ECHO %OSVer% | FINDSTR /I "Windows 11" >nul && GOTO control
+)
 
 ECHO Este script requer Windows 10 ou 11. Saindo...
 TIMEOUT /nobreak /t 5 > nul
@@ -55,11 +35,9 @@ ECHO ==================================
 ECHO *            BEM VINDO            *
 ECHO ==================================
 ECHO Guia:
-ECHO - Execute como administrador para total funcionalidade.
 ECHO - Digite um número para selecionar uma opção.
 ECHO ==================================
 ECHO *       FEITO POR: Nicolas Delfino *
-ECHO *       Copyright (c) 2024 Nicolas *
 ECHO ==================================
 PAUSE > nul
 GOTO menu
@@ -158,17 +136,17 @@ GOTO LIMP
 :limp2
 TITLE LIMPANDO ARQUIVOS ...
 CLS
-TASKKILL /F /IM wscript.exe
-DEL /Q C:\Windows\System32\CLINT.*.*
-DEL /Q C:\Windows\System32\LOAD.*.*
-DEL /Q C:\Windows\System32\GIF.*.*
-RD /S /Q C:\RECYCLER\ 
-DEL /Q /S C:\windows\system32\dllcache
-DEL /Q /S C:\MSOCache\*.*
-SC stop DiagTrack
-SC stop dmwappushservice
-SC delete DiagTrack
-SC delete dmwappushservice
+TASKKILL /F /IM wscript.exe >nul 2>&1
+DEL /Q C:\Windows\System32\CLINT.*.* >nul 2>&1
+DEL /Q C:\Windows\System32\LOAD.*.* >nul 2>&1
+DEL /Q C:\Windows\System32\GIF.*.* >nul 2>&1
+RD /S /Q C:\RECYCLER\ >nul 2>&1
+DEL /Q /S C:\windows\system32\dllcache >nul 2>&1
+DEL /Q /S C:\MSOCache\*.* >nul 2>&1
+SC stop DiagTrack >nul 2>&1
+SC stop dmwappushservice >nul 2>&1
+SC delete DiagTrack >nul 2>&1
+SC delete dmwappushservice >nul 2>&1
 ECHO Limpeza Concluída
 PAUSE > nul
 GOTO LIMP
@@ -177,9 +155,9 @@ GOTO LIMP
 TITLE LIMPANDO ARQUIVOS TEMP...
 CLS
 IF EXIST c:\windows\temp\ ( 
-    DEL /F /S /Q c:\windows\temp\*
-    DEL /F /S /Q %temp%\*
-    DEL /Q /S C:\windows\system32\dllcache
+    DEL /F /S /Q c:\windows\temp\* >nul 2>&1
+    DEL /F /S /Q %temp%\* >nul 2>&1
+    DEL /Q /S C:\windows\system32\dllcache >nul 2>&1
     ECHO Arquivos Temporários Limpos
 )
 PAUSE > nul
@@ -188,9 +166,9 @@ GOTO LIMP
 :limp4
 TITLE LIMPANDO FILA DE IMPRESSÃO ...
 CLS
-NET STOP Spooler
-DEL /F /S /Q %systemroot%\System32\spool\printers\*.* 
-NET START Spooler
+NET STOP Spooler >nul
+DEL /F /S /Q %systemroot%\System32\spool\printers\*.* >nul
+NET START Spooler >nul
 ECHO Fila de Impressão Limpa
 PAUSE > nul
 GOTO LIMP
