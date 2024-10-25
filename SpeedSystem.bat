@@ -12,9 +12,6 @@ COLOR b
 CLS
 ECHO  ==========================================
 ECHO *   INSIRA A SENHA PARA ATIVAR O PROGRAMA  *
-ECHO  ------------------------------------------
-ECHO *  - Para mais Informações, acesse a      * 
-ECHO *    documentação do repositório GIT raiz  *
 ECHO  ==========================================
 SET /P "pass=Senha>"  
 IF NOT "%pass%"=="admin" GOTO fail
