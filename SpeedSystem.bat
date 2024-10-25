@@ -8,7 +8,7 @@
 CHCP 65001 > nul
 
 :: Exibindo mensagem inicial recomendando execução como administrador
-ECHO MSGBOX "Para total funcionalidade, aconselhamos executar o arquivo como administrador",256,"FAST WIN" >%temp%\mensagem1.vbs
+ECHO MSGBOX "Para total funcionalidade, aconselhamos executar o arquivo como administrador",256,"SPEED SYSTEM" >%temp%\mensagem1.vbs
 START %temp%\mensagem1.vbs
 
 CLS
@@ -97,7 +97,7 @@ GOTO menu
 
 :LIMP
 CLS
-ECHO MSGBOX "Por segurança, aconselhamos criar um backup antes de prosseguir",256,"FAST WIN" >%temp%\mensagem2.vbs
+ECHO MSGBOX "Por segurança, aconselhamos criar um backup antes de prosseguir",256,"SPEED SYSTEM" >%temp%\mensagem2.vbs
 START %temp%\mensagem2.vbs
 TITLE LIMPEZA
 ECHO ---- MENU DE LIMPEZA ----
