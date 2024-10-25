@@ -1,13 +1,53 @@
 @ECHO off
 CHCP 65001 > nul
+TITLE iDWeb - Soluções™
+
+:: Informa ao usuário que o arquivo deve ser executado como administrador para total funcionalidade
 ECHO MSGBOX "PARA TOTAL FUNCIONALIDADE ACONSELHAMOS EXECUTAR O ARQUIVO COMO ADMINISTRADOR",256,"SPEED SYSTEM" > "%temp%\mensagem1.vbs"
 START "" "%temp%\mensagem1.vbs"
 CLS
-TITLE CONTROLE DE ACESSO
 COLOR b
 
-SET "username=%USERNAME%"
-SET "computername=%COMPUTERNAME%"
+:: Verifica se o script está sendo executado com privilégios de administrador
+IF _%1_==_payload_ GOTO :payload
+
+:getadmin
+ECHO %~nx0: Iniciando o script com privilégios elevados
+SET vbs=%temp%\getadmin.vbs
+ECHO Set UAC = CreateObject^("Shell.Application"^)                >> "%vbs%"
+ECHO UAC.ShellExecute "%~s0", "payload %~sdp0 %*", "", "runas", 1 >> "%vbs%"
+"%temp%\getadmin.vbs"
+DEL "%temp%\getadmin.vbs"
+EXIT /B
+
+:payload
+>nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
+IF %errorlevel% neq 0 (
+    ECHO Erro: Falha ao obter privilégios de administrador.
+    ECHO Saindo...
+    TIMEOUT /nobreak /t 5 > nul
+    EXIT /B
+)
+
+:CheckWindowsVersion
+:: Verifica se a versão é Windows 10 ou 11
+FOR /F "tokens=2 delims==" %%I IN ('wmic os get Caption /value') DO SET "OSVer=%%I"
+ECHO Detected OS: %OSVer%
+ECHO %OSVer% | FINDSTR /i "Windows 10" >nul
+IF %errorlevel% equ 0 (
+    ECHO Windows 10 detectado. Show! Executando...
+    GOTO :control
+)
+ECHO %OSVer% | FINDSTR /i "Windows 11" >nul
+IF %errorlevel% equ 0 (
+    ECHO Windows 11 detectado. Show! Executando...
+    GOTO :control
+)
+
+ECHO Poxa! Desculpe, a versão do Windows não suportada. Este script requer Windows 10 ou 11 posterior.
+ECHO Saindo...
+TIMEOUT /nobreak /t 5 > nul
+EXIT /B
 
 :control
 CLS
