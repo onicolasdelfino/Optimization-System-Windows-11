@@ -14,7 +14,7 @@ ECHO *  - Para mais Informações, acesse a       *
 ECHO *    documentação do repositório GIT raiz  *
 ECHO  ==========================================
 SET /P "pass=Senha>"  
-IF NOT %pass%== admin GOTO fail
+IF NOT "%pass%"=="admin" GOTO fail
 :wellcome
 CLS
 TITLE BEM VINDO
@@ -63,19 +63,20 @@ PAUSE > nul
 	ECHO     ==================================
 	SET /p opcao= Escolha uma opção: 
 	ECHO ------------------------------
-	IF %opcao% EQU 1 GOTO INFO
-	IF %opcao% EQU 2 GOTO LIMP
-	IF %opcao% EQU 3 GOTO DISCO
-	IF %opcao% EQU 4 GOTO BACKUP
-	IF %opcao% EQU 5 GOTO REDE
-	IF %opcao% EQU 6 GOTO EXE
-	IF %opcao% EQU 7 GOTO REINICIAR
-	IF %opcao% EQU 8 GOTO DESLIGAR
-	IF %opcao% EQU 9 GOTO github
-	IF %opcao% EQU 10 GOTO wellcome
-	IF %opcao% EQU 11 GOTO EXIT
-	IF %opcao% LSS 1 GOTO ERROR
-	IF %opcao% GTR 11 GOTO ERROR
+	IF "%opcao%"=="1" GOTO INFO
+	IF "%opcao%"=="2" GOTO LIMP
+	IF "%opcao%"=="3" GOTO DISCO
+	IF "%opcao%"=="4" GOTO BACKUP
+	IF "%opcao%"=="5" GOTO REDE
+	IF "%opcao%"=="6" GOTO EXE
+	IF "%opcao%"=="7" GOTO REINICIAR
+	IF "%opcao%"=="8" GOTO DESLIGAR
+	IF "%opcao%"=="9" GOTO github
+	IF "%opcao%"=="10" GOTO wellcome
+	IF "%opcao%"=="11" GOTO EXIT
+	IF "%opcao%" LSS "1" GOTO ERROR
+	IF "%opcao%" GTR "11" GOTO ERROR
+
 :INFO
 	CLS
 	TITLE INFORMAÇÕES
@@ -99,6 +100,7 @@ PAUSE > nul
 	ECHO   				 ==================================
 	PAUSE > nul
 	GOTO menu
+
 :LIMP
 	CLS
 	ECHO MSGBOX "POR SEGURANÇA ACONSELHAMOS CRIAR UM BACKUP ANTES DE PROSSEGUIR",256,"SPEED SYSTEM" >%temp%\mensagem2.vbs
@@ -113,13 +115,14 @@ PAUSE > nul
 	ECHO    * 5. Voltar                     *
 	ECHO     ===============================
 	SET /p limp= Selecione: 
-	IF %limp% EQU 1 GOTO limp1
-	IF %limp% EQU 2 GOTO limp2
-	IF %limp% EQU 3 GOTO limp3
-	IF %limp% EQU 4 GOTO limp4
-	IF %limp% EQU 5 GOTO limp5
-	IF %limp% GTR 5 GOTO limp6
-	IF %limp% LSS 1 GOTO limp6
+	IF "%limp%"=="1" GOTO limp1
+	IF "%limp%"=="2" GOTO limp2
+	IF "%limp%"=="3" GOTO limp3
+	IF "%limp%"=="4" GOTO limp4
+	IF "%limp%"=="5" GOTO limp5
+	IF "%limp%" GTR "5" GOTO limp6
+	IF "%limp%" LSS "1" GOTO limp6
+
 :limp1
 		CLS
 		TITLE LIMPANDO ...
@@ -129,6 +132,7 @@ PAUSE > nul
 		ECHO  ==================================
 		PAUSE > nul
 		GOTO menu
+
 :limp2
 		TITLE LIMPANDO ARQUIVOS ...
 		CLS
@@ -149,6 +153,7 @@ PAUSE > nul
 		ECHO  ==================================
 		PAUSE > nul
 		GOTO menu
+
 :limp3
 		TITLE LIMPANDO ARQUIVOS TEMP...
 		CLS
@@ -163,6 +168,7 @@ PAUSE > nul
 		)
 		PAUSE > nul
 		GOTO menu
+
 :limp4
 		TITLE LIMPANDO FILA DE IMPRESSÃO ...
 		CLS
@@ -174,20 +180,23 @@ PAUSE > nul
 		ECHO  ==================================
 		PAUSE > nul
 		GOTO menu
+
 :REINICIAR
 		CLS
 		ECHO  ==================================
 		ECHO  *      Reiniciando...            *
 		ECHO  ==================================
 		SHUTDOWN /r /t 0
-:GOTO menu
+	GOTO menu
+
 :DESLIGAR
 		CLS
 		ECHO  ==================================
 		ECHO  *      Desligando...             *
 		ECHO  ==================================
 		SHUTDOWN /s /t 0
-:GOTO menu
+	GOTO menu
+
 :github
 		CLS
 		TITLE GITHUB
@@ -197,5 +206,6 @@ PAUSE > nul
 		ECHO  ==================================
 		PAUSE > nul
 		GOTO menu
+
 :EXIT
 		EXIT
