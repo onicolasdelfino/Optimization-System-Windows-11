@@ -1,13 +1,15 @@
 @ECHO off
-
 CLS
+
+REM Definindo variáveis do usuário e do computador
 SET "username=%USERNAME%"
 SET "computername=%COMPUTERNAME%"
 
+REM Solicitar senha
 ECHO ==========================================
 ECHO *   INSIRA A SENHA PARA ATIVAR O PROGRAMA  *
 ECHO ==========================================
-SET /P "pass=Senha> "  
+SET /P "pass=Senha> "
 IF "%pass%"=="admin" GOTO welcome
 ECHO Senha incorreta. Tente novamente.
 PAUSE > nul
@@ -34,13 +36,13 @@ COLOR b
 ECHO USUÁRIO: %username%
 ECHO COMPUTADOR: %computername%
 ECHO DATA: %date%   %time%
-ECHO:
+ECHO.
 ECHO ----- MENU TAREFAS -----
 ECHO ==================================
 ECHO * 1.  Informações da Máquina       *
-ECHO * 2.  Opções de Limpeza            * 
-ECHO * 3.  Opções de Disco              * 
-ECHO * 4.  Opções de Backup             * 
+ECHO * 2.  Opções de Limpeza            *
+ECHO * 3.  Opções de Disco              *
+ECHO * 4.  Opções de Backup             *
 ECHO * 5.  Opções de Rede               *
 ECHO * 6.  Abrir Executáveis            *
 ECHO * 7.  Reiniciar o Computador       *
@@ -52,6 +54,7 @@ ECHO * 11. Sair                         *
 ECHO ==================================
 SET /P "opcao=Escolha uma opção: "
 
+REM Controle do menu
 IF "%opcao%"=="1" GOTO INFO
 IF "%opcao%"=="2" GOTO LIMP
 IF "%opcao%"=="3" GOTO DISCO
@@ -79,7 +82,7 @@ WMIC baseboard get product, manufacturer, version, serialnumber
 ECHO ==================================
 ECHO *       ESQUEMAS DE ENERGIA       *
 ECHO ==================================
-POWERCFG /L 
+POWERCFG /L
 ECHO ==================================
 ECHO *     INFORMAÇÕES DO SISTEMA      *
 ECHO ==================================
@@ -95,7 +98,7 @@ ECHO ---- MENU DE LIMPEZA ----
 ECHO ===============================
 ECHO * 1. Esvaziar a Lixeira         *
 ECHO * 2. Limpeza Interna            *
-ECHO * 3. Limpar Arquivos Temporários*
+ECHO * 3. Limpar Arquivos Temporários *
 ECHO * 4. Limpar Fila de Impressão   *
 ECHO * 5. Voltar                     *
 ECHO ===============================
@@ -114,7 +117,7 @@ GOTO LIMP
 CLS
 TITLE LIMPANDO ...
 RD /S /Q C:\$Recycle.bin
-ECHO Lixeira Esvaziada
+ECHO Lixeira esvaziada.
 PAUSE > nul
 GOTO LIMP
 
@@ -132,18 +135,18 @@ SC stop DiagTrack >nul 2>&1
 SC stop dmwappushservice >nul 2>&1
 SC delete DiagTrack >nul 2>&1
 SC delete dmwappushservice >nul 2>&1
-ECHO Limpeza Concluída
+ECHO Limpeza concluída.
 PAUSE > nul
 GOTO LIMP
 
 :limp3
 TITLE LIMPANDO ARQUIVOS TEMP...
 CLS
-IF EXIST c:\windows\temp\ ( 
+IF EXIST c:\windows\temp\ (
     DEL /F /S /Q c:\windows\temp\* >nul 2>&1
     DEL /F /S /Q %temp%\* >nul 2>&1
     DEL /Q /S C:\windows\system32\dllcache >nul 2>&1
-    ECHO Arquivos Temporários Limpos
+    ECHO Arquivos temporários limpos.
 )
 PAUSE > nul
 GOTO LIMP
@@ -154,7 +157,7 @@ CLS
 NET STOP Spooler >nul
 DEL /F /S /Q %systemroot%\System32\spool\printers\*.* >nul
 NET START Spooler >nul
-ECHO Fila de Impressão Limpa
+ECHO Fila de impressão limpa.
 PAUSE > nul
 GOTO LIMP
 
