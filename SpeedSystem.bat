@@ -2,25 +2,25 @@
 CHCP 65001 > nul
 TITLE iDWeb - Soluções™
 
-:: Informa ao usuário que o arquivo deve ser executado como administrador para total funcionalidade
-ECHO MSGBOX "PARA TOTAL FUNCIONALIDADE ACONSELHAMOS EXECUTAR O ARQUIVO COMO ADMINISTRADOR",256,"SPEED SYSTEM" > "%temp%\mensagem1.vbs"
+:: Informar que é necessário executar como administrador
+ECHO MSGBOX "Para total funcionalidade, execute o arquivo como administrador", 256, "iDWeb - Soluções" > "%temp%\mensagem1.vbs"
 START "" "%temp%\mensagem1.vbs"
 CLS
 COLOR b
 
-:: Verifica se o script está sendo executado com privilégios de administrador
-IF _%1_==_payload_ GOTO :payload
+:: Verificar se o script está sendo executado com privilégios de administrador
+IF _%1_==_payload_ GOTO payload
 
 :getadmin
-ECHO %~nx0: Iniciando o script com privilégios elevados
-SET vbs=%temp%\getadmin.vbs
-ECHO Set UAC = CreateObject^("Shell.Application"^)                >> "%vbs%"
-ECHO UAC.ShellExecute "%~s0", "payload %~sdp0 %*", "", "runas", 1 >> "%vbs%"
+SET "vbs=%temp%\getadmin.vbs"
+ECHO Set UAC = CreateObject^("Shell.Application"^) > "%vbs%"
+ECHO UAC.ShellExecute "%~s0", "payload", "", "runas", 1 >> "%vbs%"
 "%temp%\getadmin.vbs"
 DEL "%temp%\getadmin.vbs"
 EXIT /B
 
 :payload
+:: Verificar privilégios de administrador
 >nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
 IF %errorlevel% neq 0 (
     ECHO Erro: Falha ao obter privilégios de administrador.
@@ -29,40 +29,27 @@ IF %errorlevel% neq 0 (
     EXIT /B
 )
 
-:CheckWindowsVersion
-:: Verifica se a versão é Windows 10 ou 11
+:: Verificar a versão do Windows
 FOR /F "tokens=2 delims==" %%I IN ('wmic os get Caption /value') DO SET "OSVer=%%I"
-ECHO Detected OS: %OSVer%
-ECHO %OSVer% | FINDSTR /i "Windows 10" >nul
-IF %errorlevel% equ 0 (
-    ECHO Windows 10 detectado. Show! Executando...
-    GOTO :control
-)
-ECHO %OSVer% | FINDSTR /i "Windows 11" >nul
-IF %errorlevel% equ 0 (
-    ECHO Windows 11 detectado. Show! Executando...
-    GOTO :control
-)
+ECHO %OSVer% | FINDSTR /I "Windows 10" >nul
+IF %errorlevel% equ 0 GOTO control
+ECHO %OSVer% | FINDSTR /I "Windows 11" >nul
+IF %errorlevel% equ 0 GOTO control
 
-ECHO Poxa! Desculpe, a versão do Windows não suportada. Este script requer Windows 10 ou 11 posterior.
-ECHO Saindo...
+ECHO Este script requer Windows 10 ou 11. Saindo...
 TIMEOUT /nobreak /t 5 > nul
 EXIT /B
 
 :control
 CLS
-ECHO  ==========================================
+SET "username=%USERNAME%"
+SET "computername=%COMPUTERNAME%"
+
+ECHO ==========================================
 ECHO *   INSIRA A SENHA PARA ATIVAR O PROGRAMA  *
-ECHO  ------------------------------------------
-ECHO *  - Para mais Informações, acesse a       * 
-ECHO *    documentação do repositório GIT raiz  *
-ECHO  ==========================================
+ECHO ==========================================
 SET /P "pass=Senha> "  
 IF "%pass%"=="admin" GOTO welcome
-GOTO fail
-
-:fail
-CLS
 ECHO Senha incorreta. Tente novamente.
 PAUSE > nul
 GOTO control
@@ -74,12 +61,11 @@ ECHO ==================================
 ECHO *            BEM VINDO            *
 ECHO ==================================
 ECHO Guia:
-ECHO - Para total funcionalidade, execute como administrador.
+ECHO - Execute como administrador para total funcionalidade.
 ECHO - Digite um número para selecionar uma opção.
-ECHO - Ctrl + C para abortar e Enter para continuar.
 ECHO ==================================
 ECHO *       FEITO POR: Nicolas Delfino *
-ECHO * Copyright (c) 2024 Nicolas Delfino *
+ECHO *       Copyright (c) 2024 Nicolas *
 ECHO ==================================
 PAUSE > nul
 GOTO menu
@@ -108,7 +94,6 @@ ECHO * 10. Voltar ao Guia               *
 ECHO * 11. Sair                         *
 ECHO ==================================
 SET /P "opcao=Escolha uma opção: "
-ECHO ------------------------------
 
 IF "%opcao%"=="1" GOTO INFO
 IF "%opcao%"=="2" GOTO LIMP
@@ -148,8 +133,6 @@ GOTO menu
 
 :LIMP
 CLS
-ECHO MSGBOX "POR SEGURANÇA ACONSELHAMOS CRIAR UM BACKUP ANTES DE PROSSEGUIR",256,"SPEED SYSTEM" > "%temp%\mensagem2.vbs"
-START "" "%temp%\mensagem2.vbs"
 TITLE LIMPEZA
 ECHO ---- MENU DE LIMPEZA ----
 ECHO ===============================
@@ -174,9 +157,7 @@ GOTO LIMP
 CLS
 TITLE LIMPANDO ...
 RD /S /Q C:\$Recycle.bin
-ECHO ==================================
-ECHO *        Lixeira Esvaziada         *
-ECHO ==================================
+ECHO Lixeira Esvaziada
 PAUSE > nul
 GOTO LIMP
 
@@ -194,9 +175,7 @@ SC stop DiagTrack
 SC stop dmwappushservice
 SC delete DiagTrack
 SC delete dmwappushservice
-ECHO ==================================
-ECHO *        Limpeza Concluída         *
-ECHO ==================================
+ECHO Limpeza Concluída
 PAUSE > nul
 GOTO LIMP
 
@@ -207,10 +186,7 @@ IF EXIST c:\windows\temp\ (
     DEL /F /S /Q c:\windows\temp\*
     DEL /F /S /Q %temp%\*
     DEL /Q /S C:\windows\system32\dllcache
-    ECHO ==================================
-    ECHO *        Arquivos Temporários     *
-    ECHO *        Limpos com sucesso!      *
-    ECHO ==================================
+    ECHO Arquivos Temporários Limpos
 )
 PAUSE > nul
 GOTO LIMP
@@ -221,35 +197,26 @@ CLS
 NET STOP Spooler
 DEL /F /S /Q %systemroot%\System32\spool\printers\*.* 
 NET START Spooler
-ECHO ==================================
-ECHO *        Fila de Impressão Limpa   *
-ECHO ==================================
+ECHO Fila de Impressão Limpa
 PAUSE > nul
 GOTO LIMP
 
 :REINICIAR
 CLS
-ECHO ==================================
-ECHO *      Reiniciando...             *
-ECHO ==================================
+ECHO Reiniciando...
 SHUTDOWN /r /t 0
 GOTO menu
 
 :DESLIGAR
 CLS
-ECHO ==================================
-ECHO *      Desligando...              *
-ECHO ==================================
+ECHO Desligando...
 SHUTDOWN /s /t 0
 GOTO menu
 
 :github
 CLS
 TITLE GITHUB
-ECHO ==================================
-ECHO *   Acesse o nosso GitHub:        *
-ECHO *   https://github.com/nicolasdelfino *
-ECHO ==================================
+ECHO Acesse o nosso GitHub: https://github.com/nicolasdelfino
 PAUSE > nul
 GOTO menu
 
