@@ -1,6 +1,4 @@
 @ECHO off
-CHCP 65001 > nul
-TITLE iDWeb - Soluções™
 
 CLS
 SET "username=%USERNAME%"
